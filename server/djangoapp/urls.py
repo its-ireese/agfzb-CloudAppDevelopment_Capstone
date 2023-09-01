@@ -10,7 +10,7 @@ urlpatterns = [
     # name the URL
 
     # path for about view
-    path('about', views.about, name='aboutpage'),
+    path(route='about/', view=views.about, name='about'),
 
     # path for contact us view
 

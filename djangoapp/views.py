@@ -25,7 +25,7 @@ def contact(request):
 # Create a `login_request` view to handle sign in request
 def login_request(request):
     context = {}
-    defaultUrl = 'djangoapp/index.html'
+    defaultUrl = 'djangoapp/about.html'
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -41,8 +41,9 @@ def login_request(request):
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
+    print("Log out the user `{}`".format(request.user.username))
     logout(request)
-    return redirect('djangoapp:index')
+    return redirect('/djangoapp/contact')
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):

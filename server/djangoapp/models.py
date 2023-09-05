@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from datetime import datetime
 
 
 # Create your models here.
@@ -26,7 +27,7 @@ class CarMake(models.Model):
 # - __str__ method to print a car make object
 class CarModel(models.Model):
     model_make = models.ForeignKey(
-        CarMake, null=True, on_delete=models.CASCADE)
+    CarMake, null=True, on_delete=models.CASCADE)
     model_name = models.CharField(null=False, max_length=50)
     dealer_id = models.IntegerField(null=True)
 
@@ -43,11 +44,11 @@ class CarModel(models.Model):
         null=False, max_length=15, choices=CAR_CHOICES, default=SEDAN)
 
     YEAR_CHOICES = []
-    for r in range(2005, (datetime.datetime.now().year+1)):
+    for r in range(2005, (datetime.now().year+1)):
         YEAR_CHOICES.append((r, r))
 
     model_year = models.IntegerField(
-        ('year'), choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+        ('year'), choices=YEAR_CHOICES, default=datetime.now().year)
 
     def __str__(self):
         return self.model_name + ", " + str(self.model_year) + ", " + self.model_type

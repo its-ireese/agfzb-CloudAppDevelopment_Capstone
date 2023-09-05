@@ -12,20 +12,9 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
-
     <body>
-
     <!--Add a nav bar here -->
     {% include 'staticnav.html' %}
-    <!-- <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Dealer Review</a>
-                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About</a>               
-            </div>
-        </div>
-    </nav> -->
-
     <!--Add a dealer table here -->
     <h1>Our Dealerships</h3>
         <!-- Dealer table -->
@@ -62,7 +51,5 @@
                 $('#table').bootstrapTable()
             })
         </script>
-
     </body>
-
 </html>

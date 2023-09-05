@@ -52,9 +52,9 @@ def logout_request(request):
 # ...
 def registration_request(request):
     username = request.POST['username']
-    password = request.POST['userpassword']
-    firstname = request.POST['userfirstname']
-    lastname = request.POST['userlastname']
+    password = request.POST['password']
+    firstname = request.POST['firstname']
+    lastname = request.POST['lastname']
     isUserAvailable = False
 
     try:

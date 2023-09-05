@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dealership Review</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
 
     <body>
-
     <!--Add a nav bar here -->
-
+    {% extends 'staticnav.html' %}
     <!-- Add reviews as cards -->
-
+        {% for dealer in dealerInfo %}
+        <div class="py-4">
+            <div class="jumbotron">
+                <h1 class="display-4">{{ dealer.full_name }}</h1>
+                <br />
+                <address>{{ dealer.address }}, {{ dealer.city }}, {{ dealer.state }}, {{ dealer.zip }}</address>
+            </div>
+        </div>
+        {% endfor %}
+        {% if dealerReviews %}
+        <h2>Reviews</h2>
+        <hr />
+        <div class="container-fluid">
+            <div class="row">
+                {% for review in dealerReviews %}
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="card my-2">
+                        <div class="row no-gutters">
+                            <div class="col-md-3">
+                                <img src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png" class="w-100">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    {% if review.car_make %}
+                                    <h5 class="card-title">{{ review.car_make }}, {{ review.car_model }}, {{ review.car_year }}</h5>
+                                    {% endif %}
+                                <p class="card-text">{{ review.review }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <hr />
+            <div>
+                <a class="btn btn-primary" href="{% url 'djangoapp:add_review' dealerId %}">Write a review</a>
+            </div>
+        {% endif %}
     </body>
 
 </html>

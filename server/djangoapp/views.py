@@ -26,7 +26,6 @@ def contact(request):
 
 # Create a `login_request` view to handle sign in request
 # def login_request(request):
-# ...
 def login_request(request):
     context = {}
     defUrl = 'djangoapp/index.html'
@@ -36,7 +35,7 @@ def login_request(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('djangoapp:index')
+            return redirect(defUrl)
         else:
             return render(request, defUrl, context)
     else:
@@ -44,15 +43,13 @@ def login_request(request):
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
-# ...
 def logout_request(request):
     print(f"Log out the user `{username}`")
     logout(request)
-    return redirect('djangoapp:index')
+    return redirect('djangoapp.index.html')
 
 # Create a `registration_request` view to handle sign up request
 # def registration_request(request):
-# ...
 def registration_request(request):
     context = {}
     if request.method == 'GET':
@@ -76,7 +73,7 @@ def registration_request(request):
             user = User.objects.create_user(username=username, 
             first_name=firstname, last_name=lastname, password=password)
             login(request, user)
-            return redirect("djangoapp/index")
+            return redirect("djangoapp/index.html")
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
@@ -87,7 +84,6 @@ def get_dealerships(request):
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 # def get_dealer_details(request, dealer_id):
-# ...
 def get_dealer_details(request, dealerId):
     context = {}
     if request.method == "GET":
@@ -103,7 +99,6 @@ def get_dealer_details(request, dealerId):
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
-# ...
 def add_review(request, dealerId):
     # User must be logged in before posting a review
     if request.user.is_authenticated:

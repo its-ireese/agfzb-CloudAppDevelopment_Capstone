@@ -46,6 +46,7 @@ def login_request(request):
 # def logout_request(request):
 # ...
 def logout_request(request):
+    print(f"Log out the user `{username}`")
     logout(request)
     return redirect('djangoapp:index')
 
@@ -53,25 +54,29 @@ def logout_request(request):
 # def registration_request(request):
 # ...
 def registration_request(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    firstname = request.POST['firstname']
-    lastname = request.POST['lastname']
-    isUserAvailable = False
-
-    try:
-        User.objects.get(username=username)
-        isUserAvailable = True
-    except:
+    context = {}
+    if request.method == 'GET':
+        return render(request, 'djangoapp/registration.html', context)
+    elif request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
         isUserAvailable = False
 
-    if isUserAvailable:
-        return render(request, 'djangoapp/registration.html', {})
-    else:
-        user = User.objects.create_user(
-            username=username, first_name=firstname, last_name=lastname, password=password)
-        login(request, user)
-        return redirect("djangoapp/index")
+        try:
+            User.objects.get(username=username)
+            isUserAvailable = True
+        except:
+            isUserAvailable = False
+
+        if isUserAvailable:
+            return render(request, 'djangoapp/registration.html', {})
+        else:
+            user = User.objects.create_user(username=username, 
+            first_name=firstname, last_name=lastname, password=password)
+            login(request, user)
+            return redirect("djangoapp/index")
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):

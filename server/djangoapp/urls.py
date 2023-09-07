@@ -24,12 +24,12 @@ urlpatterns = [
 
 
     # path for logout
-    path(route='logout/', view=views.logout_request, name='login'),
+    path(route='logout/', view=views.logout_request, name='logout'),
 
     # path for home
     path(route='', view=views.get_dealerships, name='index'),
     path(route='index/', view=views.get_dealerships, name='index'),
-    path(route='home/', view=views.get_dealerships, name='index'),
+    path(route='home/', view=views.get_dealerships, name='home'),
 
     # path for dealer reviews view
     path(route='dealer/<int:dealerId>/', view=views.get_dealer_details, name='dealer'),

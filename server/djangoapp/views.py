@@ -3,7 +3,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
+from .models import CarModel, CarDealer, CarMake
 # from .restapis import related methods
+from .restapis import get_dealer_by_id, post_request, get_dealer_reviews_from_cf, get_dealers_by_state, get_dealers_from_cf, get_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -27,18 +29,18 @@ def contact(request):
 # ...
 def login_request(request):
     context = {}
-    defaultUrl = 'djangoapp/index.html'
+    defUrl = 'djangoapp/index.html'
     if request.method == "POST":
         username = request.POST['username']
-        password = request.POST['userpassword']
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
             return redirect('djangoapp:index')
         else:
-            return render(request, defaultUrl, context)
+            return render(request, defUrl, context)
     else:
-        return render(request, defaultUrl, context)
+        return render(request, defUrl, context)
 
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
@@ -127,7 +129,8 @@ def add_review(request, dealerId):
             review["car_year"] = car.model_year
 
             # API Cloud Function route
-            url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/post-review"
+            #url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/post-review"
+            #url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/post-review"
             # Create a JSON payload that contains the review data
             json_payload = {"review": review}
             # Performing a POST request with the review

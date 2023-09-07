@@ -87,11 +87,11 @@ def get_dealerships(request):
 def get_dealer_details(request, dealerId):
     context = {}
     if request.method == "GET":
-        url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/get-dealership"
-        urlReviews = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/get-review"
-        context["dealerInfo"] = get_dealer_by_id(url, dealerId)
+        dealerUrl = "https://us-south.functions.appdomain.cloud/api/v1/web/ff85bf71-3bff-4edf-8c54-cd044c6c2b4c/dealership-package/get-dealership"
+        reviewsUrl = "https://us-south.functions.appdomain.cloud/api/v1/web/ff85bf71-3bff-4edf-8c54-cd044c6c2b4c/dealership-package/get-review"
+        context["dealerInfo"] = get_dealer_by_id(dealerUrl, dealerId)
         context["dealerReviews"] = get_dealer_reviews_from_cf(
-            urlReviews, dealerId)
+            reviewsUrl, dealerId)
         context["dealerId"] = dealerId
 
         return render(request, 'djangoapp/dealer_details.html', context)
@@ -128,13 +128,11 @@ def add_review(request, dealerId):
             review["car_model"] = car.model_name
             review["car_year"] = car.model_year
 
-            # API Cloud Function route
-            #url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/post-review"
-            #url = "https://eu-gb.functions.appdomain.cloud/api/v1/web/8ce6fac2-d8dd-421f-b11e-f066c1336a48/dealership-package/post-review"
+            postReviewUrl = "https://us-south.functions.appdomain.cloud/api/v1/web/ff85bf71-3bff-4edf-8c54-cd044c6c2b4c/dealership-package/post-review"
             # Create a JSON payload that contains the review data
             json_payload = {"review": review}
             # Performing a POST request with the review
-            result = post_request(url, json_payload, dealerId=dealerId)
+            result = post_request(postReviewUrl, json_payload, dealerId=dealerId)
             if int(result.status_code) == 200:
                 print("Review posted successfully.")
 

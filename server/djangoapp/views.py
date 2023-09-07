@@ -71,7 +71,7 @@ def registration_request(request):
         user = User.objects.create_user(
             username=username, first_name=firstname, last_name=lastname, password=password)
         login(request, user)
-        return redirect("djangoapp:index")
+        return redirect("djangoapp/index")
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):

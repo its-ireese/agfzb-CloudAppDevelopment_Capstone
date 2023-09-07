@@ -34,7 +34,7 @@
                     {% for dealer in dealerships %}
                     <tr>
                         <td>{{dealer.dealer_id}}</td>
-                        <td><a href="{% url 'djangoapp:dealer_details' dealer.dealer_id %}">{{dealer.full_name}}</a>
+                        <td><a href="{% url 'djangoapp/dealer_details.html' dealer.dealer_id %}">{{dealer.full_name}}</a>
                         </td>
                         <td>{{dealer.city}}</td>
                         <td>{{dealer.address}}</td>

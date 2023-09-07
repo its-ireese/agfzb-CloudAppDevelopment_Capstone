@@ -44,7 +44,7 @@ def login_request(request):
 # Create a `logout_request` view to handle sign out request
 # def logout_request(request):
 def logout_request(request):
-    print(f"Log out the user `{username}`")
+    print(f"Log out the user `{request.user.username}`")
     logout(request)
     return redirect('djangoapp.index.html')
 
@@ -138,6 +138,6 @@ def add_review(request, dealerId):
                 print("Review posted successfully.")
 
             # After posting the review the user is redirected back to the dealer details page
-            return redirect("djangoapp:dealer_details", dealerId)
+            return redirect("djangoapp/dealer_details.html", dealerId)
     else:
         return redirect("/djangoapp/login")
